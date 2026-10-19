@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MTZK lover lay</title>
+    <style>
+        body {
+            background-color: #fce4ec;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        .container {
+            background: white;
+            padding: 25px 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            width: 85%;
+            max-width: 320px;
+            text-align: center;
+            position: relative;
+            min-height: 380px;
+            box-sizing: border-box;
+        }
+        .step-card {
+            display: none;
+            width: 100%;
+        }
+        .step-card.active {
+            display: block;
+        }
+        .heart-icon {
+            font-size: 80px;
+            color: #e53935;
+            cursor: pointer;
+            margin: 30px 0;
+            display: inline-block;
+            transition: transform 0.2s;
+        }
+        .sticker {
+            width: 130px;
+            height: 130px;
+            object-fit: contain;
+            margin: 15px 0;
+        }
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-top: 20px;
+            position: relative;
+            min-height: 60px;
+        }
+        .btn {
+            padding: 10px 18px;
+            border-radius: 20px;
+            border: none;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .btn-green {
+            background-color: #2e7d32;
+            color: white;
+        }
+        .btn-lightgreen {
+            background-color: #a5d6a7;
+            color: #1b5e20;
+        }
+        .full-screen-green {
+            background-color: #2e7d32;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 280px;
+            border-radius: 15px;
+            font-size: 32px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .agreement-title {
+            color: #d81b60;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .agreement-list {
+            text-align: left;
+            font-size: 12px;
+            padding: 0;
+            list-style: none;
+        }
+        .agreement-list li {
+            margin: 10px 0;
+            padding-bottom: 5px;
+            border-bottom: 1px dashed #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .ans-tag {
+            background-color: #a5d6a7;
+            color: #1b5e20;
+            padding: 2px 6px;
+            border-radius: 8px;
+            font-size: 10px;
+            font-weight: bold;
+        }
+        .btn-save {
+            background-color: #2e7d32;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: none;
+            font-weight: bold;
+            margin-top: 15px;
+            width: 100%;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Step 1 -->
+        <div class="step-card active" id="step1">
+            <h3 style="color: #e53935; margin-bottom: 5px;">Hello ရည်းစားဟောင်းလေး</h3>
+            <p style="color: #888; font-size: 12px; margin-top: 0;">Click The Heart</p>
+            <div class="heart-icon" onclick="nextStep(2)">❤️</div>
+        </div>
+
+        <!-- Step 2: ပြန်ချစ်ကြမလား? -->
+        <div class="step-card" id="step2">
+            <h3>ပြန်ချစ်ကြမလား?</h3>
+            <img src="https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif" class="sticker"><br>
+            <div class="btn-group">
+                <button class="btn btn-green" id="yesBtn1" onclick="nextStep(3)">ချစ်မယ်လေ</button>
+                <button class="btn btn-lightgreen" id="noBtn1" onclick="shrinkNoBtn()">မချစ်ဘူး</button>
+            </div>
+        </div>
+
+        <!-- Step 3: သတိရနေတာ သိရဲ့လား? -->
+        <div class="step-card" id="step3">
+            <h3>သတိရနေတာ သိရဲ့လား?</h3>
+            <img src="https://media.giphy.com/media/Cmr1OMJ2L0Q3m/giphy.gif" class="sticker"><br>
+            <div class="btn-group" style="position: relative; min-height: 100px;">
+                <button class="btn btn-green" onclick="nextStep(4)">ဒီကရောပဲ</button>
+                <button class="btn btn-lightgreen" id="runBtn" onclick="moveRunBtn()" style="position: relative;">မယုံပါဘူး</button>
+            </div>
+        </div>
+
+        <!-- Step 4: ပြန်တွဲကြမယ်လေနော် နော်... -->
+        <div class="step-card" id="step4">
+            <h3>ပြန်တွဲကြမယ်လေနော် နော်...</h3>
+            <img src="https://media.giphy.com/media/26xBI73gWquCBBCDe/giphy.gif" class="sticker"><br>
+            <div class="btn-group">
+                <button class="btn btn-green" onclick="nextStep(5)">တွဲကြမယ်လေ</button>
+                <button class="btn btn-lightgreen" id="hideBtn" onclick="hideSelf()">တော်ပါပြီ</button>
+            </div>
+        </div>
+
+        <!-- Step 5: ပြန်လာမယ်မလား -->
+        <div class="step-card" id="step5">
+            <h3>ပြန်လာမယ်မလား</h3>
+            <img src="https://media.giphy.com/media/nDSlfqf0pzjg7mEO0k/giphy.gif" class="sticker"><br>
+            <div class="btn-group">
+                <button class="btn btn-green" onclick="nextStep(6)">ပြန်လာမယ်</button>
+                <button class="btn btn-lightgreen" onclick="showFullScreen()">ပြန်မလာဘူး</button>
+            </div>
+        </div>
+
+        <!-- Step 6: Full Screen Green "ပြန်လာမယ်" -->
+        <div class="step-card" id="step6">
+            <div class="full-screen-green" onclick="nextStep(7)">
+                ပြန်လာမယ်
+            </div>
+        </div>
+
+        <!-- Step 7: ဒါဆို ရည်းစားပြန်ဖြစ်ပြီနော် ဟဲဟဲ -->
+        <div class="step-card" id="step7">
+            <h3>ဒါဆို ရည်းစားပြန်ဖြစ်ပြီနော် ဟဲဟဲ</h3>
+            <img src="https://media.giphy.com/media/mlvseq9yvZhba/giphy.gif" class="sticker"><br>
+            <div class="btn-group">
+                <button class="btn btn-green" onclick="finishAgreement()">Yes, Of Course</button>
+            </div>
+        </div>
+
+        <!-- Step 8: Final Agreement Paper -->
+        <div class="step-card" id="resultPage">
+            <div class="agreement-title">❤️ Our Love Agreement</div>
+            <ul class="agreement-list">
+                <li>1. ပြန်ချစ်ကြမလား? <span class="ans-tag">ချစ်မယ်လေ</span></li>
+                <li>2. သတိရနေတာ သိရဲ့လား? <span class="ans-tag">ဒီကရောပဲ</span></li>
+                <li>3. ပြန်တွဲကြမယ်လေနော် နော်... <span class="ans-tag">တွဲကြမယ်လေ</span></li>
+                <li>4. ပြန်လာမယ်မလား <span class="ans-tag">ပြန်လာမယ်</span></li>
+                <li>5. ဒါဆို ရည်းစားပြန်ဖြစ်ပြီနော် ဟဲဟဲ <span class="ans-tag">Yes, Of Course</span></li>
+            </ul>
+            <button class="btn-save" onclick="alert('PNG ဖိုင် ဒေါင်းလုပ်ဆွဲနေပါပြီ...')">Save As PNG</button>
+        </div>
+    </div>
+
+    <script>
+        let clickCount = 0;
+        let yesScale = 1;
+        let noScale = 1;
+
+        function nextStep(stepNumber) {
+            const cards = document.querySelectorAll('.step-card');
+            cards.forEach(card => card.classList.remove('active'));
+            document.getElementById('step' + stepNumber).classList.add('active');
+        }
+
+        // 1. မချစ်ဘူး သေးသွားပြီး ချစ်မယ်လေ ကြီးလာမည့် Function (4 ခါနှိပ်ရင် ပျောက်မည်)
+        function shrinkNoBtn() {
+            clickCount++;
+            yesScale += 0.25;
+            noScale -= 0.25;
+
+            const yesBtn = document.getElementById('yesBtn1');
+            const noBtn = document.getElementById('noBtn1');
+
+            yesBtn.style.transform = `scale(${yesScale})`;
+            noBtn.style.transform = `scale(${noScale})`;
+
+            if (clickCount >= 4 || noScale <= 0) {
+                noBtn.style.display = 'none';
+            }
+        }
+
+        // 2. မယုံပါဘူး ပတ်ပြေးမည့် Function
+        function moveRunBtn() {
+            const btn = document.getElementById('runBtn');
+            const x = Math.random() * 140 - 70;
+            const y = Math.random() * 80 - 40;
+            btn.style.transform = `translate(${x}px, ${y}px)`;
+        }
+
+        // 3. တော်ပါပြီ ပျောက်သွားမည့် Function
+        function hideSelf() {
+            document.getElementById('hideBtn').style.display = 'none';
+        }
+
+        // 4. ပြန်မလာဘူး နှိပ်ရင် Full Screen ပေါ်မည့် Function
+        function showFullScreen() {
+            nextStep(6);
+        }
+
+        function finishAgreement() {
+            const cards = document.querySelectorAll('.step-card');
+            cards.forEach(card => card.classList.remove('active'));
+            document.getElementById('resultPage').classList.add('active');
+        }
+    </script>
+
+</body>
+</html>
